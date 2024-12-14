@@ -1,58 +1,109 @@
-# General settings
-name: test_NATALIA_x4
-model_type: IPGModel
-scale: 4
-num_gpu: 1
-manual_seed: 10
-
-# Dataset settings
 datasets:
   test:
-    name: CustomTestSet
-    type: SingleImageDataset  # Cambiado para solo imágenes LQ
-    dataroot_lq: "D:/GIAA5/Natalia Rdgz/troncho_portal/caratulas24_lr_t" # Input images for processing
+    dataroot_lq: H:/MasOrange/IMAGENES/prueba
     io_backend:
       type: disk
+    name: CustomTestSet
     phase: test
     scale: 4
-
-# Network structures
+    type: SingleImageDataset
+manual_seed: 10
+model_type: IPGModel
+name: test_NATALIA_x4
 network_g:
-  type: IPG
-  upscale: 4
-  in_chans: 3
-  img_size: 64
-  window_size: 16
-  img_range: 1.
-  depths: [6, 6, 6, 6, 6, 6]
-  embed_dim: 180
-  num_heads: [6, 6, 6, 6, 6, 6]
-  mlp_ratio: 4
-  upsampler: pixelshuffle
-  resi_connection: 1conv
-  graph_flags: [1, 1, 1, 1, 1, 1]
-  stage_spec: [['GN', 'GS', 'GN', 'GS', 'GN', 'GS'], ['GN', 'GS', 'GN', 'GS', 'GN', 'GS'], ['GN', 'GS', 'GN', 'GS', 'GN', 'GS'], ['GN', 'GS', 'GN', 'GS', 'GN', 'GS'], ['GN', 'GS', 'GN', 'GS', 'GN', 'GS'], ['GN', 'GS', 'GN', 'GS', 'GN', 'GS']]
-  dist_type: cossim
-  top_k: 256
-  head_wise: 0
-  sample_size: 32
-  graph_switch: 1
-  flex_type: interdiff_plain
   FFNtype: basic-dwconv3
   conv_scale: 0
   conv_type: dwconv3-gelu-conv1-ca
-  diff_scales: [10,1.5,1.5,1.5,1.5,1.5]
+  depths:
+  - 6
+  - 6
+  - 6
+  - 6
+  - 6
+  - 6
+  diff_scales:
+  - 10
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  - 1.5
+  dist_type: cossim
+  embed_dim: 180
   fast_graph: 1
-
-# Path settings
+  flex_type: interdiff_plain
+  graph_flags:
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  graph_switch: 1
+  head_wise: 0
+  img_range: 1.0
+  img_size: 64
+  in_chans: 3
+  mlp_ratio: 4
+  num_heads:
+  - 6
+  - 6
+  - 6
+  - 6
+  - 6
+  - 6
+  resi_connection: 1conv
+  sample_size: 32
+  stage_spec:
+  - - GN
+    - GS
+    - GN
+    - GS
+    - GN
+    - GS
+  - - GN
+    - GS
+    - GN
+    - GS
+    - GN
+    - GS
+  - - GN
+    - GS
+    - GN
+    - GS
+    - GN
+    - GS
+  - - GN
+    - GS
+    - GN
+    - GS
+    - GN
+    - GS
+  - - GN
+    - GS
+    - GN
+    - GS
+    - GN
+    - GS
+  - - GN
+    - GS
+    - GN
+    - GS
+    - GN
+    - GS
+  top_k: 256
+  type: IPG
+  upsampler: pixelshuffle
+  upscale: 4
+  window_size: 16
+num_gpu: 1
 path:
-  pretrain_network_g: "D:/GIAA5/Natalia Rdgz/IPG_CUDA/NATALIA/pths/IPG_SRx4.pth"  # Pretrained model path
+  log: D:/GIAA5/Natalia/IPG_CUDA/LowLevel/IPG/results/test_NATALIA_x4/logs
+  pretrain_network_g: D:/GIAA5/Natalia/IPG_CUDA/NATALIA/pths/IPG_SRx4.pth
+  results_root: D:/GIAA5/Natalia/IPG_CUDA/scaled
   strict_load_g: true
-  results_root: "D:/GIAA5/Natalia Rdgz/IPG_CUDA/scaled_caratulas_x4"  # Where to save results
-  log: "D:/GIAA5/Natalia Rdgz/IPG_CUDA/LowLevel/IPG/results/test_NATALIA_x4/logs"  # Log files
-  visualization: "D:/GIAA5/Natalia Rdgz/IPG_CUDA/scaled_caratulas_x4"  # Visualization outputs
-
-# Validation settings
+  visualization: D:/GIAA5/Natalia/IPG_CUDA/scaled
+scale: 4
 val:
-  save_img: true  # Save output images
-  suffix: _x4  # Add suffix to saved images
+  save_img: true
+  suffix: _x4
